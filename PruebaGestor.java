@@ -18,5 +18,15 @@ public class PruebaGestor {
         } catch (IllegalArgumentException e) {
             System.out.println("Rechazado: " + e.getMessage());
         }
+
+        System.out.println("\n=== BUSCAR POR Id ===");
+        gestor.buscarPorId(1).ifPresentOrElse(t -> System.out.println("Encontrado: " + t), () -> System.out.println("No Existe la tarea #1 "));
+
+        gestor.buscarPorId(99).ifPresentOrElse(t -> System.out.println("Encontrado: " + t), () -> System.out.println("No Existe la tarea #99"));
+        
+        String titulo = gestor.buscarPorId(99)
+        .map(Tarea::getTitulo)
+        .orElse("(Sin Titulo)");
+        System.out.println("Tuttulo de la #99: " + titulo);
     }
 }

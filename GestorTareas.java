@@ -20,4 +20,10 @@ public class GestorTareas {
     public int contar() {
         return tareas.size();
     }
+
+    public Optional<Tarea> buscarPorId(int id) {
+        return tareas.stream()
+        .filter(t -> t.getId() == id)
+        .findFirst();
+    }
 }
