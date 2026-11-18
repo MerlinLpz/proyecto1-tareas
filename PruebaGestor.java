@@ -28,5 +28,36 @@ public class PruebaGestor {
         .map(Tarea::getTitulo)
         .orElse("(Sin Titulo)");
         System.out.println("Tuttulo de la #99: " + titulo);
+
+        System.out.println("\n=== PRIORIDAD NULL ===");
+        try {
+            gestor.listarPorPrioridad(null);
+        } catch(IllegalArgumentException e) {
+            System.out.println("Rechazado: " + e.getMessage());
+        }
+
+        System.out.println("\n=== ESTADO: pendientes y completadas ===");
+        gestor.buscarPorId(1).ifPresent(Tarea::completar);
+
+        System.out.println("Pendientes (" + gestor.listarPendientes().size() + "):");
+        for (Tarea t : gestor.listarPendientes()) {
+            System.out.println("   " + t);
+        }
+
+        System.out.println("Completadas (" + gestor.listarCompletadas().size() + "):");
+        for (Tarea t : gestor.listarCompletadas()) {
+            System.out.println("   " + t);
+        }
+
+        System.out.println("\n=== FILTRAR POR PRIORIDAD ===");
+        System.out.println("ALTA  -> " + gestor.listarPorPrioridad(Prioridad.ALTA).size());
+        System.out.println("MEDIA -> " + gestor.listarPorPrioridad(Prioridad.MEDIA).size());
+        System.out.println("BAJA  -> " + gestor.listarPorPrioridad(Prioridad.BAJA).size());
+
+        System.out.println("\n=== ELIMINAR ===");
+        System.out.println("Tareas antes: " + gestor.contar());
+        System.out.println("eliminar(1)  -> " + gestor.eliminar(1));
+        System.out.println("eliminar(99) -> " + gestor.eliminar(99) + "   (no existe)");
+        System.out.println("Tareas después: " + gestor.contar());
     }
 }

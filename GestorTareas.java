@@ -26,4 +26,29 @@ public class GestorTareas {
         .filter(t -> t.getId() == id)
         .findFirst();
     }
+
+    public boolean eliminar(int id) {
+        return tareas.removeIf(t -> t.getId() == id);
+    }
+
+    public List<Tarea> listarPendientes() {
+        return tareas.stream()
+        .filter(t ->  !t.isCompletada())
+        .toList();
+    }
+ 
+    public List<Tarea> listarCompletadas() {
+        return tareas.stream()
+        .filter(t -> t.isCompletada())
+        .toList();
+    }
+
+    public List<Tarea> listarPorPrioridad(Prioridad prioridad) {
+        if (prioridad == null) {
+            throw new IllegalArgumentException("La prioridad no puede ser null.");
+        }
+        return tareas.stream()
+        .filter(t -> t.getPrioridad() == prioridad)
+        .toList();
+    }
 }
