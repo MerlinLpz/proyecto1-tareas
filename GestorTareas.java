@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Comparator;
 
 public class GestorTareas {
     
@@ -49,6 +50,12 @@ public class GestorTareas {
         }
         return tareas.stream()
         .filter(t -> t.getPrioridad() == prioridad)
+        .toList();
+    }
+
+    public List<Tarea> listarPorUrgencia() {
+        return tareas.stream()
+        .sorted(Comparator.comparing(Tarea::getPrioridad).reversed())
         .toList();
     }
 }

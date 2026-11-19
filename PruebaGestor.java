@@ -59,5 +59,14 @@ public class PruebaGestor {
         System.out.println("eliminar(1)  -> " + gestor.eliminar(1));
         System.out.println("eliminar(99) -> " + gestor.eliminar(99) + "   (no existe)");
         System.out.println("Tareas después: " + gestor.contar());
+
+        System.out.println("\n=== ORDENADAS POR URGENCIA=====");
+        gestor.agregar(new Tarea("Pagar Factura", "", Prioridad.ALTA, null));
+        gestor.agregar(new Tarea("Ordenar Cajones", "", Prioridad.BAJA, null));
+        gestor.agregar(new Tarea("Llamar al Banco", "", Prioridad.MEDIA, null));
+
+        for (Tarea t : gestor.listarPorUrgencia()) {
+            System.out.println("   " + t);
+        }
     }
 }
